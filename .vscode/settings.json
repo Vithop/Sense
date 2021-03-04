@@ -1,4 +1,3 @@
 {
-    "jupyter.jupyterServerType": "local",
-    "python.pythonPath": "/home/vithuran/anaconda3/envs/tf/bin/python"
+    "jupyter.jupyterServerType": "local"
 }
