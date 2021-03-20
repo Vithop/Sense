@@ -79,8 +79,8 @@ def siren_sense_predict_wav():
     os.remove(file_name)
     return jsonify(data)
 
-@app.route("/predict_mp3", methods=["POST"])
-def siren_sense_predict_mp3():
+@app.route("/predict_mp4", methods=["POST"])
+def siren_sense_predict_mp4():
     
     max_pad_len = 174
 
@@ -112,7 +112,7 @@ def siren_sense_predict_mp3():
     
     audio_file = request.files["file"]
     file_name = str(random.randint(0,1000000))
-    sound = AudioSegment.from_mp3(audio_file)
+    sound = AudioSegment.from_file(audio_file, "mp4")
     sound.export(file_name, format="wav")
     print("saved file")
 

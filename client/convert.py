@@ -12,8 +12,8 @@ from pydub import AudioSegment
 
 # files                                                                         
 src = "test_audio/dog_bark_1.wav"
-dst = "test_audio/dog_bark_1_mp3.mp3"
+dst = "test_audio/dog_bark_1_mp4.mp4"
 
 # convert mp3 to wav                                                            
 sound = AudioSegment.from_wav(src)
-sound.export(dst, format="mp3")
+sound.export(dst, format="mp4")

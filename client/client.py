@@ -20,11 +20,11 @@ import requests
 
 #     print("Predicted class: {}".format(data["predicted_class"]))
 
-URL = "http://127.0.0.1:5000/predict_mp3"
+URL = "http://127.0.0.1:5000/predict_mp4"
 
 
 # audio file we'd like to send for predicting keyword
-FILE_PATH = "test_audio/dog_bark_1_mp3.mp3"
+FILE_PATH = "test_audio/dog_bark_1_mp4.mp4"
 
 
 if __name__ == "__main__":
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     file = open(FILE_PATH, "rb")
 
     # package stuff to send and perform POST request
-    values = {"file": (FILE_PATH, file, "audio/mp3")}
+    values = {"file": (FILE_PATH, file, "audio/mp4")}
     response = requests.post(URL, files=values)
     data = response.json()
 
