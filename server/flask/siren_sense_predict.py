@@ -30,8 +30,8 @@ class Sense:
     def __init__(self):
 
         # Convert into a Panda dataframe 
-        # self.featuresdf = pd.read_csv("server/flask/model/featuresdf.csv")
-        self.featuresdf = pd.read_csv("model/featuresdf.csv")
+        self.featuresdf = pd.read_csv("server/flask/model/featuresdf.csv")
+        # self.featuresdf = pd.read_csv("model/featuresdf.csv")
 
         y = np.array(self.featuresdf.class_label.tolist())
         # print(y)
@@ -41,7 +41,8 @@ class Sense:
         to_categorical(self.le.fit_transform(y))
 
         # self.model = tf.keras.models.load_model('server/flask/model/siren_sense_model.hdf5')
-        self.model = tf.keras.models.load_model('model/siren_sense_model.hdf5')
+        # self.model = tf.keras.models.load_model('model/siren_sense_model.hdf5')
+        self.model = tf.keras.models.load_model('model/saved_models/new_model_4_class')
         # self.sess = tf.compat.v1.keras.backend.get_session()
         # self.graph = tf.Graph
     def predict(self, file_name):
