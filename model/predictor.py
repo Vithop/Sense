@@ -12,7 +12,7 @@ from keras.utils import to_categorical
 # MODEL
 from keras.models import load_model
 
-CURRENT_PATH = path = os.path.dirname(os.path.abspath(__file__))
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 RELATIVE_MODEL_LOCATION = 'saved_models/new_model_4_class'
 MODEL_PATH = os.path.join(CURRENT_PATH, RELATIVE_MODEL_LOCATION)
 LABELS = ["car_horn", "construction", "noise", "siren"]
