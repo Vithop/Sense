@@ -76,6 +76,6 @@ class Model:
         '''
 
 
-model = Model()
-audio_path = 'audio/dog.wav'
-prediction = model.predict(os.path.join(CURRENT_PATH, audio_path))
+# model = Model()
+# audio_path = 'audio/dog.wav'
+# prediction = model.predict(os.path.join(CURRENT_PATH, audio_path))

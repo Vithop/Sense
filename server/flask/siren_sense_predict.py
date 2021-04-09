@@ -1,74 +1,76 @@
 # To add a new cell, type '# %%'
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
-import tensorflow as tf
+# import tensorflow as tf
 import soundfile as sf
 import pandas as pd
 import numpy as np
 import librosa
 import pprint
 import random
+import sys
 import os
 import io
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 # from pydub import AudioSegment
-from sklearn.preprocessing import LabelEncoder
-from tensorflow.keras.utils import to_categorical
-
-
+# from sklearn.preprocessing import LabelEncoder
+# from tensorflow.keras.utils import to_categorical
+# sys.path.append(".../model")
+# from ...model.predictor import Model
+from predictor import Model
 app = Flask(__name__)
 CORS(app)
 
-class Sense:
-    max_pad_len = 174
+# class Sense:
+#     max_pad_len = 174
 
-    num_rows = 40
-    num_columns = 174
-    num_channels = 1
+#     num_rows = 40
+#     num_columns = 174
+#     num_channels = 1
     
-    def __init__(self):
+#     def __init__(self):
 
-        # Convert into a Panda dataframe 
-        self.featuresdf = pd.read_csv("server/flask/model/featuresdf.csv")
-        # self.featuresdf = pd.read_csv("model/featuresdf.csv")
+#         # Convert into a Panda dataframe 
+#         self.featuresdf = pd.read_csv("server/flask/model/featuresdf.csv")
+#         # self.featuresdf = pd.read_csv("model/featuresdf.csv")
 
-        y = np.array(self.featuresdf.class_label.tolist())
-        # print(y)
+#         y = np.array(self.featuresdf.class_label.tolist())
+#         # print(y)
         
-        # Encode the classification labels
-        self.le = LabelEncoder()
-        to_categorical(self.le.fit_transform(y))
+#         # Encode the classification labels
+#         self.le = LabelEncoder()
+#         to_categorical(self.le.fit_transform(y))
 
-        # self.model = tf.keras.models.load_model('server/flask/model/siren_sense_model.hdf5')
-        # self.model = tf.keras.models.load_model('model/siren_sense_model.hdf5')
-        self.model = tf.keras.models.load_model('model/saved_models/new_model_4_class')
-        # self.sess = tf.compat.v1.keras.backend.get_session()
-        # self.graph = tf.Graph
-    def predict(self, file_name):
-        try:
-            audio, sample_rate = librosa.load(file_name, res_type='kaiser_fast') 
-            # audio, sample_rate = sf.read(file_name.stream()) 
-            mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
-            pad_width = self.max_pad_len - mfccs.shape[1]
-            mfccs = np.pad(mfccs, pad_width=((0, 0), (0, pad_width)), mode='constant')
+#         # self.model = tf.keras.models.load_model('server/flask/model/siren_sense_model.hdf5')
+#         # self.model = tf.keras.models.load_model('model/siren_sense_model.hdf5')
+#         self.model = tf.keras.models.load_model('model/saved_models/new_model_4_class')
+#         # self.sess = tf.compat.v1.keras.backend.get_session()
+#         # self.graph = tf.Graph
+#     def predict(self, file_name):
+#         try:
+#             audio, sample_rate = librosa.load(file_name, res_type='kaiser_fast') 
+#             # audio, sample_rate = sf.read(file_name.stream()) 
+#             mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
+#             pad_width = self.max_pad_len - mfccs.shape[1]
+#             mfccs = np.pad(mfccs, pad_width=((0, 0), (0, pad_width)), mode='constant')
             
-        except Exception as e:
-            print("Error encountered while parsing file: ", file_name)
-            return None 
+#         except Exception as e:
+#             print("Error encountered while parsing file: ", file_name)
+#             return None 
         
-        prediction_feature = mfccs.reshape(1, self.num_rows, self.num_columns, self.num_channels)
+#         prediction_feature = mfccs.reshape(1, self.num_rows, self.num_columns, self.num_channels)
 
 
-        predicted_vector = np.argmax(self.model.predict(prediction_feature), axis=-1)
-        predicted_classes = self.le.inverse_transform(predicted_vector) 
-        # print("The predicted class is:", predicted_classes[0], '\n') 
+#         predicted_vector = np.argmax(self.model.predict(prediction_feature), axis=-1)
+#         predicted_classes = self.le.inverse_transform(predicted_vector) 
+#         # print("The predicted class is:", predicted_classes[0], '\n') 
 
-        return predicted_classes[0]
+#         return predicted_classes[0]
 
 
 
-sense = Sense()
+sense = Model()
 
 # Quick Test 
 @app.route("/hello")
